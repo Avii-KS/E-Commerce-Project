@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const User = require("../model/userModel.js");
+const User = require("../model/user.js");
 const router = express.Router();
 const { upload } = require("../middleware/multer");
 const ErrorHandler = require("../utils/ErrorHandler");
@@ -35,7 +35,7 @@ router.post(
     let fileurl = "";
 
     if (req.file) {
-      fileUrl = path.join("uploads", req.file.filename);
+      fileurl = path.join("uploads", req.file.filename);
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
