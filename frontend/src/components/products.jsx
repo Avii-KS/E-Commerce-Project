@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+//eslint-disable-next-line
+import {React, useState, useEffect} from 'react';
+import propTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom';
 
-export default function Product({ _id, name, image, description, price }) {
+export default function Product({ _id, name, images, description, price }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const navigate = useNavigate();
     useEffect(() => {
-        if (!image || image.length === 0) return;
+        if (!images || images.length === 0) return;
         const interval = setInterval(() => {
-            setCurrentIndex(prevIndex => (prevIndex + 1) % image.length);
+            setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
         }, 2000);
         return () => clearInterval(interval);
-    }, [image]);
+    }, [images]);
 
-    console.log(image);
+    console.log(images);
 
-    const currentImage = image.length > 0 ? image[currentIndex] : null;
+    const currentImage = images.length > 0 ? images[currentIndex] : null;
     console.log(currentImage);
     return (
         <div className="group bg-gradient-to-b from-blue-50 to-white p-6 rounded-2xl shadow-lg flex flex-col gap-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl">
@@ -53,7 +54,7 @@ export default function Product({ _id, name, image, description, price }) {
             {/* Button */}
             <button
                 className="w-full rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white transition-all duration-300 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                onClick={() => { navigate(`/productDetails/${_id}`) }}
+                onClick={() => { navigate(`/product/${_id}`) }}
             >
                 More Info
             </button>
@@ -61,12 +62,12 @@ export default function Product({ _id, name, image, description, price }) {
     );
 };
 
+
+
 Product.propTypes = {
-
-    name: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired,
-    image: PropTypes.arrayOf(PropTypes.string).isRequired,
-    description: PropTypes.string.isRequired,
-
-    price: PropTypes.number.isRequired,
-};
+    _id: propTypes.string.isRequired,
+    name: propTypes.string.isRequired,
+    images: propTypes.arrayOf(propTypes.string).isRequired,
+    description: propTypes.string.isRequired,
+    price: propTypes.number.isRequired,
+}
